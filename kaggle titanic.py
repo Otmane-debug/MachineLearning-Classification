@@ -14,10 +14,6 @@ print(train_data.info())
 print(train_data.describe())
 print("")
 
-print(test_data.info())
-print(test_data.describe())
-print("")
-
 train = train_data.drop(['PassengerId', 'Cabin', 'Name'], axis=1)
 test = test_data.drop(['PassengerId', 'Cabin', 'Name'], axis=1)
 
@@ -27,6 +23,10 @@ print("")
 
 print("Test data Null num")
 print(test_data.isnull().sum())
+
+train = train_data.drop(['PassengerId', 'Cabin', 'Name'], axis=1)
+test = test_data.drop(['PassengerId', 'Cabin', 'Name'], axis=1)
+
 
 train.fillna(train[['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']].mean(), inplace=True)
 test.fillna(test[['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']].mean(), inplace=True)
