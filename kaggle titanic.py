@@ -10,12 +10,23 @@ from sklearn.pipeline import make_pipeline
 train_data = pd.read_csv("train.csv")
 test_data = pd.read_csv("test.csv")
 
+print(train_data.info())
+print(train_data.describe())
+print("")
+
+print(test_data.info())
+print(test_data.describe())
+print("")
+
 train = train_data.drop(['PassengerId', 'Cabin', 'Name'], axis=1)
 test = test_data.drop(['PassengerId', 'Cabin', 'Name'], axis=1)
 
-print(train.isnull().sum())
+print("Train data Null sum :")
+print(train_data.isnull().sum())
 print("")
-print(test.isnull().sum())
+
+print("Test data Null num")
+print(test_data.isnull().sum())
 
 train.fillna(train[['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']].mean(), inplace=True)
 test.fillna(test[['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']].mean(), inplace=True)
@@ -23,7 +34,7 @@ test.fillna(test[['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRD
 cols = ['HomePlanet', 'CryoSleep', 'Destination', 'VIP', 'Transported']
 Cols = ['HomePlanet', 'CryoSleep', 'Destination', 'VIP']
 
-le=LabelEncoder()
+le = LabelEncoder()
 for col in cols:
     train[col] = le.fit_transform(train[col])
 for col in Cols:
@@ -32,8 +43,11 @@ for col in Cols:
 train = train.ffill()
 test = test.bfill()
 
+print("Train data Null sum :")
 print(train.isnull().sum())
 print("")
+
+print("Test data Null num")
 print(test.isnull().sum())
 
 X = train.drop('Transported', axis=1)
@@ -62,7 +76,7 @@ print("Classification Report on validation data:\n", class_report)
 # Predict on the test data
 predictions_test = pipe.predict(test)
 
-predictions_test = [True if pred ==  1 else False for pred in predictions_test]
+predictions_test = [True if pred == 1 else False for pred in predictions_test]
 
 passenger_predictions = pd.DataFrame({'PassengerId': test_data['PassengerId'], 'Transported': predictions_test})
 
