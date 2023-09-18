@@ -10,11 +10,16 @@ from sklearn.pipeline import make_pipeline
 train_data = pd.read_csv("train.csv")
 test_data = pd.read_csv("test.csv")
 
+print(train_data.info())
+print(train_data.descibe()
+print(train.isnull().sum())
+print("")
+      
 train = train_data.drop(['PassengerId', 'Cabin', 'Name'], axis=1)
 test = test_data.drop(['PassengerId', 'Cabin', 'Name'], axis=1)
 
-print(train.isnull().sum())
-print("")
+print(test_data.info())
+print(test_data.descibe()
 print(test.isnull().sum())
 
 train.fillna(train[['Age', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 'VRDeck']].mean(), inplace=True)
